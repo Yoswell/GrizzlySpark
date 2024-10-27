@@ -1,41 +1,44 @@
-![image](https://github.com/user-attachments/assets/ac0bf1d5-6973-4b3a-8857-31417908234a)
+![378014235-ac0bf1d5-6973-4b3a-8857-31417908234a](https://github.com/user-attachments/assets/a1b76dd9-baf7-4d45-8f92-a254ea8919e3)
 
 ```🤖 CTF Helper Tool```
 ><p>Una herramienta poderosa escrita en Python diseñada para ayudar a los participantes de CTF (Capture The Flag) en la resolución de retos de seguridad informática. Esta herramienta proporciona varias funcionalidades útiles que facilitan el análisis y manipulación de datos, lo que permite a los usuarios enfocarse en resolver los desafíos.</p>
 
 ```📙 Caracteristicas```
-> [!NOTE]  
-**C1** - Hexadecimal a texto: Convierte datos en formato hexadecimal a texto legible.<br>
-**C2** - Texto a hexadecimal: Transforma texto en su representación hexadecimal.<br>
-**C3** - Decimal a texto: Convierte números decimales en texto.<br>
-**C4** - Binario a texto: Decodifica cadenas binarias a texto.<br>
-**C5** - Binario a hexadecimal: Convierte binario en su formato hexadecimal.<br>
-**C6** - Decimal a hexadecimal: Transforma números decimales en su representación hexadecimal.<br>
-**C7** - Codificación URL: Convierte caracteres especiales en sus valores codificados de URL.<br>
-**C8** - Inversión de cadenas: Revierte una cadena de caracteres (por ejemplo, "aloh" a "hola").<br>
-**C9** - Long bytes a texto: Convierte cadenas largas de bytes a texto.<br>
-**C10** - Hexadecimal (0x?? format) a decimal: Convierte números en formato hexadecimal al sistema decimal.<br>
+| **Convert** | **Description**                                                                                   |
+|----------|---------------------------------------------------------------------------------------------------|
+| **C1**   | Hexadecimal to text: Converts hexadecimal formatted data into readable text.                     |
+| **C2**   | Text to hexadecimal: Transforms text into its hexadecimal representation.                         |
+| **C3**   | Decimal to text: Converts decimal numbers into text.                                            |
+| **C4**   | Binary to text: Decodes binary strings into text.                                               |
+| **C5**   | Binary to hexadecimal: Converts binary into its hexadecimal format.                              |
+| **C6**   | Decimal to hexadecimal: Transforms decimal numbers into their hexadecimal representation.        |
+| **C7**   | URL Encoding: Converts special characters into their URL-encoded values.                        |
+| **C8**   | String reversal: Reverses a string (e.g., "aloh" to "hola").                                   |
+| **C9**   | Long bytes to text: Converts long byte strings into text.                                       |
+| **C10**  | Hexadecimal (0x?? format) to decimal: Converts numbers in hexadecimal format to decimal.        |
 
-> [!WARNING]  
-**D1** - Decodificación Base64: Desencripta cadenas cifradas en Base64.<br>
-**D2** - Decodificación Morse: Traduce código Morse a texto.<br>
-**D3** - Decodificación ROT13: Aplica la rotación ROT13 para decodificar cadenas.<br>
-**D4** - Descifrado de sustitución (archivo): Decodifica archivos utilizando cifrado por sustitución.<br>
-**D5** - Decodificación Base64 (archivo): Desencripta archivos cifrados en Base64.<br>
-**D6** - Decodificación URL: Convierte URL codificadas en su forma original.<br>
-**D7** - Decodificación RSA: Descifra datos RSA utilizando valores de `e`, `n`, `c`, `p` y `q`.<br>
-**D8** - Decodificación Vigenere: Desencripta utilizando el cifrado de Vigenere.<br>
-**D9** - XOR (dos cadenas) sin clave (formato HEX): Decodificación XOR entre dos cadenas sin clave.<br>
-**D10** - Decodificación FuckJs: Descifra cadenas utilizando el formato de codificación de JavaScript avanzado (ej. `+(+!+[]+(!+)`).<br>
-**D11** - Decodificación MD5: Intenta decodificar hashes MD5.<br>
-**D12** - Luhn (verificación de tarjeta): Detecta números de tarjeta de crédito válidos usando el algoritmo Luhn.<br>
-**D13** - Lenguaje BrainFuck: Interpreta y decodifica cadenas escritas en BrainFuck.<br>
-**D14** - Decodificación Caesar: Desencripta utilizando el cifrado de César.<br>
-**D15** - Decodificación Bacon: Desencripta texto cifrado en Bacon (ej. `abbb abaaa abbaa`).<br>
-**D16** - Decodificación Trithemius: Descifra utilizando el cifrado de Trithemius.<br>
-**D17** - XOR (cadena única) fuerza bruta (HEX): Realiza un ataque de fuerza bruta sobre una cadena XOR sin clave.<br>
-**D18** - Decodificación Caesar ASCII: Aplica el cifrado César en valores ASCII.<br>
-**D19** - XOR (dos archivos): Decodifica XOR entre dos archivos.<br>
+| **Decode** | **Description**                                                                                   |
+|----------|---------------------------------------------------------------------------------------------------|
+| **D1**   | Base64 Decoding: Decrypts strings encoded in Base64.                                            |
+| **D2**   | Morse Decoding: Translates Morse code into text.                                                |
+| **D3**   | ROT13 Decoding: Applies ROT13 rotation to decode strings.                                       |
+| **D4**   | Substitution Decryption (file): Decodes files using substitution cipher.                        |
+| **D5**   | Base64 Decoding (file): Decrypts files encoded in Base64.                                      |
+| **D6**   | URL Decoding: Converts encoded URLs back to their original form.                                |
+| **D7**   | RSA Decoding: Decrypts RSA data using values of `e`, `n`, `c`, `p`, and `q`.                   |
+| **D8**   | Vigenere Decoding: Decrypts using the Vigenere cipher.                                         |
+| **D9**   | XOR (two strings) without key (HEX format): Decodes XOR between two strings without a key.     |
+| **D10**  | FuckJs Decoding: Decrypts strings using advanced JavaScript encoding format (e.g., `+(+!+[]+(!+)`). |
+| **D11**  | MD5 Decoding: Attempts to decode MD5 hashes.                                                   |
+| **D12**  | Luhn (card verification): Detects valid credit card numbers using the Luhn algorithm.          |
+| **D13**  | BrainFuck Language: Interprets and decodes strings written in BrainFuck.                       |
+| **D14**  | Caesar Decoding: Decrypts using the Caesar cipher.                                             |
+| **D15**  | Bacon Decoding: Decrypts text encoded in Bacon cipher (e.g., `abbb abaaa abbaa`).              |
+| **D16**  | Trithemius Decoding: Decodes using the Trithemius cipher.                                      |
+| **D17**  | XOR (single string) brute force (HEX): Performs a brute force attack on an XOR string without a key. |
+| **D18**  | Caesar ASCII Decoding: Applies the Caesar cipher on ASCII values.                               |
+| **D19**  | XOR (two files): Decodes XOR between two files.                                                |
 
-> [!CAUTION]  
-**E1** - Web Scraping: Extrae información de páginas web mediante patrones de texto específicos.<br>
+| **Exploit** | **Description**                                                                                   |
+|----------|---------------------------------------------------------------------------------------------------|
+| **E1**   | Web Scraping: Extracts information from web pages using specific text patterns.                 |
