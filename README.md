@@ -3,8 +3,8 @@
 ```🤖 CTF Helper Tool```
 ><p>Una herramienta poderosa escrita en Python diseñada para ayudar a los participantes de CTF (Capture The Flag) en la resolución de retos de seguridad informática. Esta herramienta proporciona varias funcionalidades útiles que facilitan el análisis y manipulación de datos, lo que permite a los usuarios enfocarse en resolver los desafíos.</p>
 
-```📙 Caracteristicas```
-| **Convert** | **Description**                                                                                   |
+```📙 Convert```
+| **Code** | **Description**                                                                                   |
 |----------|---------------------------------------------------------------------------------------------------|
 | **C1**   | Hexadecimal to text: Converts hexadecimal formatted data into readable text.                     |
 | **C2**   | Text to hexadecimal: Transforms text into its hexadecimal representation.                         |
@@ -17,7 +17,8 @@
 | **C9**   | Long bytes to text: Converts long byte strings into text.                                       |
 | **C10**  | Hexadecimal (0x?? format) to decimal: Converts numbers in hexadecimal format to decimal.        |
 
-| **Decode** | **Description**                                                                                   |
+```📙 Decode```
+| **Code** | **Description**                                                                                   |
 |----------|---------------------------------------------------------------------------------------------------|
 | **D1**   | Base64 Decoding: Decrypts strings encoded in Base64.                                            |
 | **D2**   | Morse Decoding: Translates Morse code into text.                                                |
@@ -39,6 +40,7 @@
 | **D18**  | Caesar ASCII Decoding: Applies the Caesar cipher on ASCII values.                               |
 | **D19**  | XOR (two files): Decodes XOR between two files.                                                |
 
-| **Exploit** | **Description**                                                                                   |
+```📙 Exploit```
+| **Code** | **Description**                                                                                   |
 |----------|---------------------------------------------------------------------------------------------------|
 | **E1**   | Web Scraping: Extracts information from web pages using specific text patterns.                 |
