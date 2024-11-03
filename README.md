@@ -10,7 +10,7 @@
 
 Install all external dependencies
 
-```python
+```bash
 https://github.com/Yoswell/Guilty-Spark.git
 
 pip3 install -r requirements.txt
@@ -65,17 +65,17 @@ print(f"\t{colored('[+]', 'yellow')} E1  - Web Scrapping (url, text pattern)    
 Below I show you some ways to use Guilty-Spark
 
 ```python
-~ ❯ guiltySpark -mc2 -i'sp4rk{Th15_15_4_f4k3_fl4g}' 
+~ ❯ python3 guiltySpark -mc2 -i'sp4rk{Th15_15_4_f4k3_fl4g}' 
 
     [◒] Uploading: 343
     [*] >> 737034726b7b546831355f31355f345f66346b335f666c34677d
 
-~ ❯ guiltySpark -mc1 -i'737034726b7b546831355f31355f345f66346b335f666c34677d'
+~ ❯ python3 guiltySpark -mc1 -i'737034726b7b546831355f31355f345f66346b335f666c34677d'
 
     [▝] Uploading: 343
     [*] >> sp4rk{Th15_15_4_f4k3_fl4g}
 
-~ ❯ guiltySpark -md14 -i'vs4un{Wk15_15_4_i4n3_io4j}'      
+~ ❯ python3 guiltySpark -md14 -i'vs4un{Wk15_15_4_i4n3_io4j}'      
     
     [-] Uploading: 343
     [*] >> vs4un{Wk15_15_4_i4n3_io4j}
@@ -114,10 +114,8 @@ Below I show you some ways to use Guilty-Spark
     [*] >> ol4ng{Pd15_15_4_b4g3_bh4c}
     [*] >> nk4mf{Oc15_15_4_a4f3_ag4b}
     [*] >> mj4le{Nb15_15_4_z4e3_zf4a}
-
     [*] >> li4kd{Ma15_15_4_y4d3_ye4z}
     [*] >> kh4jc{Lz15_15_4_x4c3_xd4y}
-
     [*] >> jg4ib{Ky15_15_4_w4b3_wc4x}
     [*] >> if4ha{Jx15_15_4_v4a3_vb4w}
 ```
