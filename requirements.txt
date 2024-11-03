@@ -1,0 +1,4 @@
+pwntools
+termcolor
+pycryptodome
+urllib3
