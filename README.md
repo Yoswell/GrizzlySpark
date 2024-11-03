@@ -3,8 +3,9 @@
 
 
 ## Documentation
-<p>A powerful tool written in Python designed to help CTF (Capture The Flag) participants in solving IT security challenges. This tool provides several useful functionalities that facilitate data analysis and manipulation, allowing users to focus on solving challenges.</p>
-
+<p>A powerful tool written in Python designed to help CTF (Capture The Flag) participants in solving IT security challenges. This tool provides several useful functionalities that facilitate data analysis and manipulation, allowing users to focus on solving challenges.<br><br>
+<img href="https://discord.com/api/guilds/1296164292424368148/widget.json" src="https://img.shields.io/static/v1?message=Discord&logo=discord&label=&color=5865F2&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="linkedin logo"  />
+</p>
 
 ## Installation
 
