@@ -121,4 +121,4 @@ Below I show you some ways to use Guilty-Spark
 ```
 
 ## Authors
-Developed by Vishok <a href="https://www.linkedin.com/in/yoswel-badilla-cyberjr/">LinkedIn</a>
+Developed by <a href="https://www.linkedin.com/in/yoswel-badilla-cyberjr/">Vishok</a>
