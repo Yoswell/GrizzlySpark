@@ -11,7 +11,7 @@
 Install all external dependencies
 
 ```bash
-https://github.com/Yoswell/Guilty-Spark.git
+git clone https://github.com/Yoswell/Guilty-Spark.git
 
 pip3 install -r requirements.txt
 
