@@ -65,22 +65,21 @@ print(f"\t{colored('[+]', 'yellow')} E1  - Web Scrapping (url, text pattern)    
 Below I show you some ways to use Guilty-Spark
 
 ```python
-~ ❯ python3 grizzlySPK -mc2 -i'sp4rk{Th15_15_4_f4k3_fl4g}' 
+~ ❯ python3 grizzlySPK -mc2 -i'gr1zzlySPK{Th15_15_4_f4k3_fl4g}' 
 
     [◒] Uploading: 343
-    [*] >> 737034726b7b546831355f31355f345f66346b335f666c34677d
+    [*] >> 6772317a7a6c7953504b7b546831355f31355f345f66346b335f666c34677d
 
-~ ❯ python3 grizzlySPK -mc1 -i'737034726b7b546831355f31355f345f66346b335f666c34677d'
+~ ❯ python3 grizzlySPK -mc1 -i'6772317a7a6c7953504b7b546831355f31355f345f66346b335f666c34677d'
 
     [▝] Uploading: 343
-    [*] >> sp4rk{Th15_15_4_f4k3_fl4g}
+    [*] >> gr1zzlySPK{Th15_15_4_f4k3_fl4g}
 
-~ ❯ python3 guiltySpark -md14 -i'vs4un{Wk15_15_4_i4n3_io4j}'      
+~ ❯ python3 guiltySpark -md14 -i'ju1ccobVSN{Wk15_15_4_i4n3_io4j}'      
     
     [-] Uploading: 343
-    [*] >> vs4un{Wk15_15_4_i4n3_io4j}
-    [*] >> sp4rk{Th15_15_4_f4k3_fl4g} >> Correct flag
-    [*] >> ro4qj{Sg15_15_4_e4j3_ek4f}
+    [*] >> zk1sserLID{Ma15_15_4_y4d3_ye4z}
+    [*] >> gr1zzlySPK{Th15_15_4_f4k3_fl4g} >> Correct flag
 ```
 
 ## Authors
