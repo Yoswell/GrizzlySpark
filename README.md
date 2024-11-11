@@ -1,5 +1,5 @@
 # GrizzlySpark / CTF tool resolved
-![382589821-2065ecf5-0e9b-4263-a10a-546a6bbd6e23](https://github.com/user-attachments/assets/6145d4e4-0b99-4390-b2f1-6d6eb7851522)
+![382589821-2065ecf5-0e9b-4263-a10a-546a6bbd6e23](https://github.com/user-attachments/assets/335e4698-0ee9-4ca6-b289-1e8bd635bd80)
 
 ## Documentation
 <p>A powerful tool written in Python designed to help CTF (Capture The Flag) participants in solving IT security challenges. This tool provides several useful functionalities that facilitate data analysis and manipulation, allowing users to focus on solving challenges. <a href="https://discord.com/api/guilds/1296164292424368148/widget.json">Join to discord</a>
