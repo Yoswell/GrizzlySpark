@@ -11,7 +11,7 @@
 Install all external dependencies
 
 ```bash
-git clone https://github.com/Yoswell/Guilty-Spark.git
+git clone https://github.com/Yoswell/GrizzlySpark.git
 
 pip3 install -r requirements.txt
 
@@ -65,12 +65,12 @@ print(f"\t{colored('[+]', 'yellow')} E1  - Web Scrapping (url, text pattern)    
 Below I show you some ways to use Guilty-Spark
 
 ```python
-~ ❯ python3 guiltySpark -mc2 -i'sp4rk{Th15_15_4_f4k3_fl4g}' 
+~ ❯ python3 grizzlySPK -mc2 -i'sp4rk{Th15_15_4_f4k3_fl4g}' 
 
     [◒] Uploading: 343
     [*] >> 737034726b7b546831355f31355f345f66346b335f666c34677d
 
-~ ❯ python3 guiltySpark -mc1 -i'737034726b7b546831355f31355f345f66346b335f666c34677d'
+~ ❯ python3 grizzlySPK -mc1 -i'737034726b7b546831355f31355f345f66346b335f666c34677d'
 
     [▝] Uploading: 343
     [*] >> sp4rk{Th15_15_4_f4k3_fl4g}
