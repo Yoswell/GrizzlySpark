@@ -63,24 +63,7 @@ print(f"\t{colored('[+]', 'yellow')} E1  - Web Scrapping (url, text pattern)    
 
 ## Uses examples
 Below I show you some ways to use Guilty-Spark
-
-```python
-~ ❯ python3 grizzlySPK -mc2 -i'gr1zzlySPK{Th15_15_4_f4k3_fl4g}' 
-
-    [◒] Uploading: 343
-    [*] >> 6772317a7a6c7953504b7b546831355f31355f345f66346b335f666c34677d
-
-~ ❯ python3 grizzlySPK -mc1 -i'6772317a7a6c7953504b7b546831355f31355f345f66346b335f666c34677d'
-
-    [▝] Uploading: 343
-    [*] >> gr1zzlySPK{Th15_15_4_f4k3_fl4g}
-
-~ ❯ python3 guiltySpark -md14 -i'ju1ccobVSN{Wk15_15_4_i4n3_io4j}'      
-    
-    [-] Uploading: 343
-    [*] >> zk1sserLID{Ma15_15_4_y4d3_ye4z}
-    [*] >> gr1zzlySPK{Th15_15_4_f4k3_fl4g} >> Correct flag
-```
+![image](https://github.com/user-attachments/assets/edbc2849-421f-4edb-a416-0d741d9444fc)
 
 ## Authors
 Developed by <a href="https://www.linkedin.com/in/yoswel-badilla-cyberjr/">Vishok</a>
