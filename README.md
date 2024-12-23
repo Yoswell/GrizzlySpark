@@ -1,5 +1,5 @@
 # GrizzlySpark / CTF Tool Resolved
-![GrizzlySpark Logo](https://github.com/user-attachments/assets/032b5557-5c00-4337-86c6-a08372383c03)
+![screenshot(3)](https://github.com/user-attachments/assets/52b7a2d5-a132-4ccb-a2f6-5379ef661a2e)
 
 ## Description
 **GrizzlySpark** is a powerful Python tool designed to assist CTF (Capture The Flag) participants in solving IT security challenges. The tool provides various functionalities for data analysis, conversion, and manipulation, allowing users to focus on solving complex security problems efficiently. Whether you're decoding, analyzing traffic, or working with different formats, GrizzlySpark simplifies your tasks.
