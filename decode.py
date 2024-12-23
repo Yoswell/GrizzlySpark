@@ -1,19 +1,16 @@
-from pwn import log as o
 from termcolor import colored
-import argparse
 import base64
 import subprocess as sub
-import re
 import os
-from time import sleep
 from urllib.parse import quote, unquote
-from time import sleep
 import fnmatch
 import getpass
 
+# Función para obtener el usuario actual
 def get_current_user():
     return getpass.getuser()
 
+# Función para localizar archivos
 def locate_file(directory, filename):
     matches = []
     for root, dirnames, filenames in os.walk(directory):
@@ -21,6 +18,7 @@ def locate_file(directory, filename):
             matches.append(os.path.join(root, filename))
     return matches
 
+# Decodificador XOR entre el contenido de dos archivos
 def xor_files(file1_path, file2_path, output_file_path):
     try:
         current_user = get_current_user()
@@ -48,6 +46,7 @@ def xor_files(file1_path, file2_path, output_file_path):
     except FileNotFoundError as e:
         print(f"Error: {e}")
 
+# Decodificador caesar en formato ASCII
 def ascii_caesar_shift(message, distance):
     encrypted = ""
     for char in message:
@@ -58,22 +57,25 @@ def ascii_caesar_shift(message, distance):
         encrypted += chr(value % 128)
     return encrypted
 
+# Decodificador XOR
 def xor_decrypt(ciphertext, key):
     return ''.join(chr(c ^ key) for c in ciphertext)
 
-def brute_force_xor(ciphertext):
+# Fuerza bruta XOR
+def brute_force_xor(text: str) -> str:
     possible_texts = []
     for key in range(256):
-        decrypted_text = xor_decrypt(ciphertext, key)
+        decrypted_text = xor_decrypt(text, key)
         possible_texts.append((key, decrypted_text))
     return possible_texts
 
-def trithemius_decode(ciphertext):
+# Decodificación Trithemius
+def trithemius_decode(text: str) -> str:
     try:
         plaintext = []
         shift = 0
 
-        for char in ciphertext:
+        for char in text:
             if char.isalpha():
                 if char.islower():
                     base = ord('a')
@@ -89,7 +91,8 @@ def trithemius_decode(ciphertext):
         return ''.join(plaintext)
     except Exception as e: pass
 
-def bacon_decode(ciphertext):
+# Decodificación Bacon
+def bacon_decode(text: str) -> str:
     try:
         bacon_dict_1 = {
             'AAAAA': 'A', 'AAAAB': 'B', 'AAABA': 'C', 'AAABB': 'D', 'AABAA': 'E',
@@ -132,8 +135,8 @@ def bacon_decode(ciphertext):
             'BABAA': 'W', 'BABAB': 'X', 'BABBA': 'Y', 'BABBB': 'Z'
         }
 
-        def bacon_decode_1(ciphertext):
-            ciphertext = ciphertext.replace(' ', '').upper()
+        def bacon_decode_1(text):
+            ciphertext = text.replace(' ', '').upper()
             if len(ciphertext) % 5 != 0:
                 raise ValueError("...")
 
@@ -142,8 +145,8 @@ def bacon_decode(ciphertext):
 
             return plaintext
 
-        def bacon_decode_2(ciphertext):
-            ciphertext = ciphertext.replace(' ', '').upper()
+        def bacon_decode_2(text):
+            ciphertext = text.replace(' ', '').upper()
             if len(ciphertext) % 5 != 0:
                 raise ValueError("...")
 
@@ -152,8 +155,8 @@ def bacon_decode(ciphertext):
 
             return plaintext
 
-        def bacon_decode_3(ciphertext):
-            ciphertext = ciphertext.replace(' ', '').upper()
+        def bacon_decode_3(text):
+            ciphertext = text.replace(' ', '').upper()
             if len(ciphertext) % 5 != 0:
                 raise ValueError("...")
 
@@ -162,8 +165,8 @@ def bacon_decode(ciphertext):
 
             return plaintext
         
-        def bacon_decode_4(ciphertext):
-            ciphertext = ciphertext.replace(' ', '').upper()
+        def bacon_decode_4(text):
+            ciphertext = text.replace(' ', '').upper()
             if len(ciphertext) % 5 != 0:
                 raise ValueError("...")
 
@@ -172,8 +175,8 @@ def bacon_decode(ciphertext):
 
             return plaintext
         
-        def bacon_decode_5(ciphertext):
-            ciphertext = ciphertext.replace(' ', '').upper()
+        def bacon_decode_5(text):
+            ciphertext = text.replace(' ', '').upper()
             if len(ciphertext) % 5 != 0:
                 raise ValueError("...")
 
@@ -192,6 +195,7 @@ def bacon_decode(ciphertext):
         return decoded_text
     except Exception as e: pass
 
+#Decodificador de cifrado caesar
 def cesar_decode(texto, desplazamiento):
     try:
         resultado = ""
@@ -208,9 +212,10 @@ def cesar_decode(texto, desplazamiento):
         return resultado
     except Exception as e: pass
 
-def brainfuck_interpreter(code):
+# Decodificador de cifrado brainfuck
+def brainfuck_interpreter(text: str) -> str:
     try:
-        code = ''.join(filter(lambda x: x in ['>', '<', '+', '-', '.', ',', '[', ']'], code))
+        code = ''.join(filter(lambda x: x in ['>', '<', '+', '-', '.', ',', '[', ']'], text))
         tape = [0] * 30000
         code_pointer = 0
         tape_pointer = 0
@@ -265,29 +270,7 @@ def luhn_find_card(n):
                 return i
     except Exception as e: pass
 
-def md5_decode(hash_crack):
-    try:
-        import requests
-        from bs4 import BeautifulSoup
-        import re
-
-        url = f"https://md5.gromweb.com/?md5={hash_crack}"
-
-        response = requests.get(url)
-        soup = BeautifulSoup(response.content, 'html.parser')
-        result = soup.find('p', class_='word-break-all')
-        data = str(result)
-        array = data.split('=')
-
-        if "was successfully reversed into the string" in array[4]:
-            new_text = array[7].replace('">', '.').replace('</a></p>', '.')
-            patron = re.compile(r'\.(.*?)\.')
-            resultados = patron.findall(new_text)
-            return resultados[0]
-        else:
-            return None
-    except Exception as e: pass
-
+# Decodificador XOR entre cadenas de texto sin usar una clave (brute force)
 def xor_chain_sin_key(input_1, input_2):
     def xor_bytes(data1, data2):
         try:
@@ -304,21 +287,25 @@ def xor_chain_sin_key(input_1, input_2):
         return result_str
     except Exception as e: pass
 
-def vigenere_decrypt(text, key):
+# Decodificador de cifrado vigenere 
+def vigenere_decrypt(text: str, key: str) -> str:
     try:
         key = (key * (len(text) // len(key) + 1))[:len(text)]
         result = []
         for i in range(len(text)):
             if text[i].isupper():
-                result.append(chr((ord(text[i]) - ord(key[i]) + 26) % 26 + 65))
+                shift = ord(key[i].upper()) - ord('A') 
+                result.append(chr((ord(text[i]) - ord('A') - shift + 26) % 26 + ord('A')))
             elif text[i].islower():
-                result.append(chr((ord(text[i]) - ord(key[i]) + 26) % 26 + 97))
+                shift = ord(key[i].lower()) - ord('a')
+                result.append(chr((ord(text[i]) - ord('a') - shift + 26) % 26 + ord('a')))
             else:
                 result.append(text[i])
         return ''.join(result)
     except Exception as e: pass
 
-def rsa_decode_3_values(path):
+# Decodificador de cifrado RSA usando e, n, c, p, q
+def rsa_decode_3_values(path: str) -> str:
     from sympy import mod_inverse
     
     line = []
@@ -395,7 +382,8 @@ def rsa_decode_3_values(path):
             return m
         except Exception as e: pass
 
-def base64_to_text(text):
+# Decodificador de base64 a texto plano
+def base64_to_text(text: str) -> str:
     try:
         missing_padding = len(text) % 4
         if missing_padding != 0:
@@ -404,48 +392,34 @@ def base64_to_text(text):
         return decoded.decode()
     except Exception as e: pass
 
-def sustitution(texto_cifrado):
-    try:
-        clave = {
-            'A': 'A', 'B': 'Y', 'C': 'W', 'D': 'M', 'E': 'C', 'F': 'N', 'G': 'O', 'H': 'P', 'I': 'H', 'J': 'J',
-            'K': 'R', 'L': 'S', 'M': 'T', 'N': 'Z', 'O': 'I', 'P': 'Q', 'Q': 'K', 'R': 'D', 'S': 'L', 'T': 'E',
-            'U': 'G', 'V': 'X', 'W': 'U', 'X': 'V', 'Y': 'F', 'Z': 'B',
-            'a': 'a', 'b': 'y', 'c': 'w', 'd': 'm', 'e': 'c', 'f': 'n', 'g': 'o', 'h': 'p', 'i': 'h', 'j': 'j',
-            'k': 'r', 'l': 's', 'm': 't', 'n': 'z', 'o': 'i', 'p': 'q', 'q': 'k', 'r': 'd', 's': 'l', 't': 'e',
-            'u': 'g', 'v': 'x', 'w': 'u', 'x': 'v', 'y': 'f', 'z': 'b'
-        }
-        texto_decodificado = []
-
-        for char in texto_cifrado:
-            if char in clave:
-                texto_decodificado.append(clave[char])
-            else:
-                texto_decodificado.append(char)
-        return ''.join(texto_decodificado)
-    except Exception as e: pass
-
-def decode_morse(morse_code):
+# Decodificador de codigo morse
+def decode_morse(morse_code: str) -> str:
     try:
         morse_code_dict = {
             'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 'G': '--.', 'H': '....',
             'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---', 'P': '.--.',
             'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-',
             'Y': '-.--', 'Z': '--..', '1': '.----', '2': '..---', '3': '...--', '4': '....-', '5': '.....',
-            '6': '-....', '7': '--...', '8': '---..', '9': '----.', '0': '-----',
-            ' ': '/'
+            '6': '-....', '7': '--...', '8': '---..', '9': '----.', '0': '-----'
         }
+        
         inverse_morse_code_dict = {v: k for k, v in morse_code_dict.items()}
-        morse_words = morse_code.split(' ')
+        
+        # Dividimos el mensaje de morse en palabras (separadas por 3 espacios '   ')
+        morse_words = morse_code.strip().split('   ')
         decoded_message = []
 
         for word in morse_words:
-            decoded_word = ''.join(inverse_morse_code_dict[letter] for letter in word.split())
+            letters = word.split(' ')
+            decoded_word = ''.join(inverse_morse_code_dict.get(letter, ' ') for letter in letters)
             decoded_message.append(decoded_word)
-
+        
         return ' '.join(decoded_message)
-    except Exception as e: pass
+    
+    except Exception as e:
+        pass
 
-def rot13(text):
+def rot13(text: str) -> str:
     try:
         result = ''
         for char in text:
@@ -462,3 +436,14 @@ def url_decode(encoded_text):
     try:
         return unquote(encoded_text)
     except Exception as e: pass
+
+# Función para decodificar usando Atbash Cipher
+def atbash_cipher(text: str) -> str:
+    try:
+        alphabet = 'abcdefghijklmnopqrstuvwxyz'
+        atbash_dict = {char: alphabet[::-1][i] for i, char in enumerate(alphabet)}
+        atbash_dict.update({char.upper(): alphabet[::-1][i].upper() for i, char in enumerate(alphabet)})
+        return ''.join([atbash_dict.get(char, char) for char in text])
+    except Exception as e:
+        print(f"[!] Error al decodificar con Atbash: {e}")
+        return ""
