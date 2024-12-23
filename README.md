@@ -1,4 +1,4 @@
-# GrizzlySpark / CTF Tool Resolved
+![screenshot(2)](https://github.com/user-attachments/assets/1acafcb2-61c6-4779-97bf-263ec6a0dc37)# GrizzlySpark / CTF Tool Resolved
 ![GrizzlySpark Logo](https://github.com/user-attachments/assets/032b5557-5c00-4337-86c6-a08372383c03)
 
 ## Description
@@ -17,8 +17,8 @@ GrizzlySpark includes a variety of essential features for CTF challenges:
 - **Decoding/Encoding**: Decode or encode data using common cryptographic algorithms (e.g., Base64, ROT13, XOR).
 - **File Analysis**: Analyze suspicious files for CTF purposes.
 - **Automation**: Automate tasks to save time and reduce errors during challenges.
-
-![Features Screenshot](https://github.com/user-attachments/assets/77eac3c6-194a-477c-813e-8afc573bccb3)
+  
+![screenshot(1)](https://github.com/user-attachments/assets/7b3a887d-85b3-4ad7-a938-359cd6af5c81)
 
 ## Installation
 To install GrizzlySpark, clone the repository and install the necessary dependencies:
@@ -34,10 +34,11 @@ To install GrizzlySpark, clone the repository and install the necessary dependen
     Vishok@user > pip install -r requirements.txt
     Vishok@user > pip install -r requirements.txt //En caso de warnings
     ```
-
+   
 ## Usage Examples
 Here are some examples of how to use GrizzlySpark for various CTF tasks:
-![Usage Screenshot](https://github.com/user-attachments/assets/3260fa1c-efb3-4f75-85fa-39b28c087556)
+
+![screenshot(2)](https://github.com/user-attachments/assets/39e495d2-39bd-48d1-8b43-4fddefc80c81)
 
 ## Contributing
 We welcome contributions from the community. To contribute to GrizzlySpark:
