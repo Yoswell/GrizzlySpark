@@ -1,4 +1,4 @@
-![screenshot(2)](https://github.com/user-attachments/assets/1acafcb2-61c6-4779-97bf-263ec6a0dc37)# GrizzlySpark / CTF Tool Resolved
+# GrizzlySpark / CTF Tool Resolved
 ![GrizzlySpark Logo](https://github.com/user-attachments/assets/032b5557-5c00-4337-86c6-a08372383c03)
 
 ## Description
