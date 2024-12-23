@@ -1,22 +1,54 @@
-# GrizzlySpark / CTF tool resolved
-![382589821-2065ecf5-0e9b-4263-a10a-546a6bbd6e23](https://github.com/user-attachments/assets/032b5557-5c00-4337-86c6-a08372383c03)
+# GrizzlySpark / CTF Tool Resolved
+![GrizzlySpark Logo](https://github.com/user-attachments/assets/032b5557-5c00-4337-86c6-a08372383c03)
 
-## Documentation
-<p>
-A powerful tool written in Python designed to help CTF (Capture The Flag) participants in solving IT security challenges. This tool provides several useful functionalities that facilitate data analysis and manipulation, allowing users to focus on solving challenges.
-</p>
+## Description
+**GrizzlySpark** is a powerful Python tool designed to assist CTF (Capture The Flag) participants in solving IT security challenges. The tool provides various functionalities for data analysis, conversion, and manipulation, allowing users to focus on solving complex security problems efficiently. Whether you're decoding, analyzing traffic, or working with different formats, GrizzlySpark simplifies your tasks.
 
-## Installation
-Install all external dependencies
-![screenshot](https://github.com/user-attachments/assets/c3fd5bda-bbcc-4093-9f98-0319c6bb47d2)
+## Table of Contents
+- [Features](#features)
+- [Installation](#installation)
+- [Usage Examples](#usage-examples)
+- [Contributing](#contributing)
+- [Authors](#authors)
 
 ## Features
-This project includes several conversion and decoding functionalities. Below is the menu of available options:
-![screenshot(1)](https://github.com/user-attachments/assets/77eac3c6-194a-477c-813e-8afc573bccb3)
+GrizzlySpark includes a variety of essential features for CTF challenges:
+- **Data Conversion**: Convert between different formats (Base64, Hex, etc.)
+- **Decoding/Encoding**: Decode or encode data using common cryptographic algorithms (e.g., Base64, ROT13, XOR).
+- **File Analysis**: Analyze suspicious files for CTF purposes.
+- **Automation**: Automate tasks to save time and reduce errors during challenges.
 
-## Uses examples
-Below I show you some ways to use Guilty-Spark
-![screenshot(2)](https://github.com/user-attachments/assets/3260fa1c-efb3-4f75-85fa-39b28c087556)
+![Features Screenshot](https://github.com/user-attachments/assets/77eac3c6-194a-477c-813e-8afc573bccb3)
+
+## Installation
+To install GrizzlySpark, clone the repository and install the necessary dependencies:
+
+1. Clone the repository:
+    ```bash
+    Vishok@user > git clone https://github.com/username/grizzlyspark.git
+    Vishok@user > cd grizzlyspark
+    ```
+
+2. Install the required dependencies:
+    ```bash
+    Vishok@user > pip install -r requirements.txt
+    Vishok@user > pip install -r requirements.txt //En caso de warnings
+    ```
+
+## Usage Examples
+Here are some examples of how to use GrizzlySpark for various CTF tasks:
+![Usage Screenshot](https://github.com/user-attachments/assets/3260fa1c-efb3-4f75-85fa-39b28c087556)
+
+## Contributing
+We welcome contributions from the community. To contribute to GrizzlySpark:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-name`).
+3. Commit your changes (`git commit -am 'Add feature'`).
+4. Push to the branch (`git push origin feature-name`).
+5. Create a pull request.
+
+Please make sure to follow the Code of Conduct and provide clear explanations for your changes.
 
 ## Authors
-Developed by <a href="https://www.linkedin.com/in/yoswel-badilla-cyberjr/">Vishok</a>
+Developed by [Yoswel Badilla](https://www.linkedin.com/in/yoswel-badilla-cyberjr/), also known as **Vishok**.
