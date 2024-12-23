@@ -13,11 +13,13 @@
 
 ## Features
 GrizzlySpark includes a variety of essential features for CTF challenges:
-**Data Conversion**: Convert between different formats (Base64, Hex, etc.)
-**Decoding/Encoding**: Decode or encode data using (e.g., Base64, ROT13, XOR).
-**File Analysis**: Analyze suspicious files for CTF purposes.
-**Automation**: Automate tasks to save time and reduce errors during challenges.
-  
+1. Data Conversion**: Convert between different formats (Base64, Hex, etc.)<br>
+2. Decoding/Encoding**: Decode or encode data using (e.g., Base64, ROT13, XOR).<br>
+3. File Analysis**: Analyze suspicious files for CTF purposes.<br>
+4. Automation**: Automate tasks to save time and reduce errors during challenges.
+
+### Ilustrative image:
+
 ![screenshot(1)](https://github.com/user-attachments/assets/7b3a887d-85b3-4ad7-a938-359cd6af5c81)
 
 ## Installation
@@ -37,6 +39,8 @@ To install GrizzlySpark, clone the repository and install the necessary dependen
    
 ## Usage Examples
 Here are some examples of how to use GrizzlySpark for various CTF tasks:
+
+### Ilustrative image:
 
 ![screenshot(2)](https://github.com/user-attachments/assets/39e495d2-39bd-48d1-8b43-4fddefc80c81)
 
