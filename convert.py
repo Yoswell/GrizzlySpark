@@ -1,37 +1,36 @@
-from pwn import log as o
 from termcolor import colored
-import argparse
 import base64
 import subprocess as sub
-import re
 import os
-from time import sleep
 from urllib.parse import quote, unquote
-from time import sleep
 import fnmatch
 import getpass
 from Crypto.Util.number import long_to_bytes
 
-def binary_to_hex(opc):
+# Convertir numeros binarios a numeros en hexadecimal
+def binary_to_hex(text: str) -> str:
     try:
-        integer_representation = int(opc, 2)
+        integer_representation = int(text, 2)
         hexadecimal_string = hex(integer_representation)[2:]
         return hexadecimal_string
     except Exception as e: pass
 
-def imprimir_valor_hexadecimal(opc):
+# Convertir formato hexadecimal con 0x a numeros hexadecimales
+def imprimir_valor_hexadecimal(text: str) -> str:
     try:
-        valor_decimal = int(opc, 16)
+        valor_decimal = int(text, 16)
         return valor_decimal
     except Exception as e: pass
 
-def long_bytes(opc):
+# Decodificador de long bytes
+def long_bytes(text: str) -> str:
     try:
-        opc = int(opc)
-        plaintext = long_to_bytes(opc).decode('utf-8')
+        text = int(text)
+        plaintext = long_to_bytes(text).decode('utf-8')
         return plaintext
     except Exception as e: pass
-    
+
+# Invertir una cadena
 def revert_strings(n):
     try:
         c = len(n) - 1
@@ -41,33 +40,37 @@ def revert_strings(n):
             c -= 1
         return string
     except Exception as e: pass
-    
-def hex_to_text(strings):
-    try:
-        hex_value = hex(int(strings))[2:]
-        hex_to_text = bytes.fromhex(hex_value).decode('utf-8', 'ignore')
-        return hex_to_text
-    except Exception as e: pass
 
-def text_to_hex(text):
+# Convertir numeros hexadecimales a texto plano
+def hex_to_text(text: str) -> str:
+    try:
+        hex_to_text = bytes.fromhex(text).decode('utf-8', 'ignore')
+        return hex_to_text
+    except ValueError: pass
+
+# Convertir texto plano a numeros en hexadecimal
+def text_to_hex(text: str) -> str:
     try:
         bytes_object = text.encode("utf-8")
         hex_representation = bytes_object.hex()
         return hex_representation
     except Exception as e: pass
 
-def decimal_to_text(decimal_numbers):
+# Convertir numeros decimales a texto plano
+def decimal_to_text(number: str) -> str:
     try:
-        text = ''.join(chr(int(num)) for num in decimal_numbers.split(','))
+        text = ''.join(chr(int(num)) for num in number.split(','))
         return text
     except Exception as e: pass
 
-def decimal_to_hex(decimal_number):
+# Convertir numeros decimales a hexadecimal
+def decimal_to_hex(number: str) -> str:
     try:
-        hexadecimal_string = hex(decimal_number)[2:]
+        hexadecimal_string = hex(number)[2:]
         return hexadecimal_string
     except Exception as e: pass
 
+# Convertir numeros binarios a texto plano
 def binary_to_text(binary_str, encoding='ascii'):
     try:
         bytes_list = [binary_str[i:i+8] for i in range(0, len(binary_str), 8)]
@@ -77,7 +80,8 @@ def binary_to_text(binary_str, encoding='ascii'):
         return decoded_text
     except Exception as e: pass
 
-def url_encode(text):
+# Decodificar el url-encode en las urls
+def url_encode(text: str) -> str:
     try:
         return quote(text)
     except Exception as e: pass
