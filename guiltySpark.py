@@ -4,64 +4,42 @@ from pwn import log as o
 from termcolor import colored
 import argparse
 import base64
-import subprocess as sub
-import re
 import os
 from time import sleep
-from urllib.parse import quote, unquote
-from time import sleep
-import fnmatch
-import getpass
-from convert import hex_to_text
-from convert import long_bytes
-from convert import imprimir_valor_hexadecimal
-from convert import binary_to_hex
 
-from decode import brute_force_xor
-from decode import trithemius_decode
-from decode import bacon_decode
-from decode import cesar_decode
-from decode import brainfuck_interpreter
-from decode import luhn_find_card
-from decode import md5_decode
-from decode import xor_chain_sin_key
-from decode import vigenere_decrypt
-from decode import rsa_decode_3_values
-from decode import base64_to_text
-from decode import sustitution
-from decode import decode_morse
-from decode import rot13
-from decode import url_decode
-from decode import ascii_caesar_shift
-from decode import xor_files
 
-from exploit import fetch_and_search
+from convert import (
+    hex_to_text, long_bytes, imprimir_valor_hexadecimal, binary_to_hex, revert_strings, hex_to_text,
+    hex_to_text, text_to_hex, decimal_to_text, decimal_to_hex, binary_to_text, url_encode
+)
 
-ascii_art = [
-    "",
-    "      .---.        .-----------",
-    "     /     \\  __  /    ------",
-    "    / /     \\(  )/    -----",
-    "   //////   ' \\/ `   ---",
-    "  //// / // :    : ---",
-    " // /   /  /`    '--",
-    "//          //..\\\\",
-    "       ====UU====UU====",
-    "           '//||\\\\'",
-    "              ''",
-]
+from decode import (
+    brute_force_xor, trithemius_decode, bacon_decode, cesar_decode, brainfuck_interpreter, 
+    luhn_find_card, xor_chain_sin_key, vigenere_decrypt, rsa_decode_3_values, base64_to_text, 
+    decode_morse, rot13, url_decode, ascii_caesar_shift, xor_files, atbash_cipher
+)
 
-for line in ascii_art:
-    print(colored(line, 'blue'))
+from exploit import fetch_and_search, scan_icmp
 
 def print_modes():
+    print("""
+                    ▄▄                    ▄▄                                                            
+  ▄▄█▀▀▀█▄█          ██                  ▀███                ▄█▀▀▀█▄█                         ▀███       
+▄██▀     ▀█                                ██               ▄██    ▀█                           ██       
+██▀       ▀▀███▄███▀███  █▀▀▀███ █▀▀▀███   ██ ▀██▀   ▀██▀   ▀███▄   ▀████████▄ ▄█▀██▄ ▀███▄███  ██  ▄██▀ 
+█▓           ██▀ ▀▀  ██  ▀  ███  ▀  ███    ▓█   ██   ▄█       ▀█████▄ ██   ▀████   ██   ██▀ ▀▀  ██ ▄█    
+█▓▄    ▀████ █▓      ▓█    ██▓     ██▓     ▓█    ██ ▄▓            ▀██ ▓█    ██ ▄███▓█   █▓      ▓█▄██    
+▀▓█▄     ██  █▓      ▓█   ▓██     ▓██      ▓█     ██▓       ██     ██ ▓█    ▓██▓   ▓█   █▓      ▓█ ▀██▄  
+▓▓▓    ▀▓█▓▓ ▓▓      ▓▓   ▓█▓     ▓█▓      ▓▓     █▓▓       ▓     ▀█▓ ▓█▓   ▓▓ ▓▓▓▓▒▓   ▓▓      ▓▓▓▓▓    
+▀▒▓▓     ▓▓  ▓▒      ▓▓  ▓▓▓   ▓ ▓▓▓   ▓   ▒▓     ▒▓▒       ▓▓     ▓▓ ▓█   ▓▓▓▓▓   ▒▓   ▓▒      ▒▓ ▀▓▓▓  
+  ▒▒▒ ▒ ▒▒ ▒ ▒▒▒   ▒ ▒ ▒ ▒ ▒▓▒▓▒ ▒ ▒▓▒▓▒ ▒ ▒ ▒     ▓        ▒▓▒ ▒ ▒▓  ▒▓▒ ▒ ▒ ▒▓▒ ▒ ▓▒▒ ▒▒▒   ▒ ▒ ▒  ▒ ▒""")
     #---------------------------------------------------------------------------------#
     print(f"\n{colored('[+]', 'red')} Convert")
     print(f"\t{colored('[+]', 'yellow')} C1  - Hexadecimal to text                               options(-m -i)")
     print(f"\t{colored('[+]', 'yellow')} C2  - Text to hexadecimal                               options(-m -i)")
     print(f"\t{colored('[+]', 'yellow')} C3  - Decimal to text                                   options(-m -i)")
     print(f"\t{colored('[+]', 'yellow')} C4  - Binary to text                                    options(-m -i)")
-    print(f"\t{colored('[+]', 'yellow')} C5  - Binary to hex                                     options(-m -i)")
+    print(f"\t{colored('[+]', 'yellow')} C5  - Binary to hexadecimal                             options(-m -i)")
     print(f"\t{colored('[+]', 'yellow')} C6  - Decimal to hexadecimal                            options(-m -i)")
     print(f"\t{colored('[+]', 'yellow')} C7  - URL encode                                        options(-m -i)")
     print(f"\t{colored('[+]', 'yellow')} C8  - Revert strings (aloh -> hola)                     options(-m -i)")
@@ -69,18 +47,15 @@ def print_modes():
     print(f"\t{colored('[+]', 'yellow')} C10 - Convert hexadecimal (0x?? format) to decimal      options(-m -i)")
     #---------------------------------------------------------------------------------#
     print(f"{colored('[+]', 'red')} Decode")
-    print(f"\t{colored('[+]', 'yellow')} D1  - Base64 cypher                                     options(-m -i)")
-    print(f"\t{colored('[+]', 'yellow')} D2  - Morse cypher                                      options(-m -i)")
-    print(f"\t{colored('[+]', 'yellow')} D3  - ROT13 cypher                                      options(-m -i)")
-    print(f"\t{colored('[+]', 'yellow')} D4  - Sustitution cypher file decode                    options(-m -f)")
-    print(f"\t{colored('[+]', 'yellow')} D5  - Base64 cypher file decode                         options(-m -f -r)")
+    print(f"\t{colored('[+]', 'yellow')} D1  - Base64                                            options(-m -i)")
+    print(f"\t{colored('[+]', 'yellow')} D2  - Morse decode                                      options(-m -i)")
+    print(f"\t{colored('[+]', 'yellow')} D3  - ROT13 decode                                      options(-m -i)")
+    print(f"\t{colored('[+]', 'yellow')} D4  - Atbash decode                                     options(-m -i)")
+    print(f"\t{colored('[+]', 'yellow')} D5  - Base64 file decode                                options(-m -f -r)")
     print(f"\t{colored('[+]', 'yellow')} D6  - URL decode                                        options(-m -i)")
     print(f"\t{colored('[+]', 'yellow')} D7  - RSA decode with (e:? n:? c:? p:? q:?)             options(-m -f)")
     print(f"\t{colored('[+]', 'yellow')} D8  - Vigenere decode                                   options(-m -i -k)")
     print(f"\t{colored('[+]', 'yellow')} D9  - Xor (Two chains) without (key) (HEX format)       options(-m -i -j)")
-    print(f"\t{colored('[+]', 'yellow')} D10 - FuckJs lenguage  (format -> +(+!+[]+(!+)          options(-m -f)")
-    print(f"\t{colored('[+]', 'yellow')} D11 - MD5 decode                                        options(-m -i)")
-    print(f"\t{colored('[+]', 'yellow')} D12 - Luhn find card (5612****123:234)                  options(-m -i)")
     print(f"\t{colored('[+]', 'yellow')} D13 - BrainFuck lenguage (format -> >+++++++++[<+)      options(-m -i)")
     print(f"\t{colored('[+]', 'yellow')} D14 - Caesar decode                                     options(-m -i)")
     print(f"\t{colored('[+]', 'yellow')} D15 - Bacon decode (format -> abbb abaaa abbaa)         options(-m -i)")
@@ -90,7 +65,8 @@ def print_modes():
     print(f"\t{colored('[+]', 'yellow')} D19 - Xor (Two Files) decode                            options(-m -x -y -z)")
     #-------------------------------------=-------------------------------------------#
     print(f"{colored('[+]', 'red')} Exploits")
-    print(f"\t{colored('[+]', 'yellow')} E1  - Web Scrapping (url, text pattern)                 options(-i -j)\n")
+    print(f"\t{colored('[+]', 'yellow')} E1  - Web Scrapping (url, text pattern)                 options(-m -i -j)")
+    print(f"\t{colored('[+]', 'yellow')} E2  - Check active ip                                   options(-m -i)\n")
     #-------------------------------------=-------------------------------------------#
     print(f"""Usage: To continue for see more information about this program...\n\n(...{colored('[*]', 'blue')}
     {colored('[!]', 'green')} guiltySpark.py -m<MODE>               <For select mode>
@@ -107,19 +83,7 @@ def print_modes():
     #---------------------------------------------------------------------------------#
 
 def main():
-    parser = argparse.ArgumentParser(description="", add_help=False, 
-    usage=f"""To continue for see more information about this program...\n\n(...{colored('[*]', 'blue')}
-    {colored('[!]', 'green')} guiltySpark.py -m<MODE>               <For select mode>
-    {colored('[!]', 'green')} guiltySpark.py -s<M>                  <For see modes>
-    {colored('[!]', 'green')} guiltySpark.py -i<INPUT1>             <For insert input>
-    {colored('[!]', 'green')} guiltySpark.py -f<PATH FILE>          <For insert path file>
-    {colored('[!]', 'green')} guiltySpark.py -x<PATH FILE 1>        <For insert path file 1>
-    {colored('[!]', 'green')} guiltySpark.py -y<PATH FILE 2>        <For insert path file 2>
-    {colored('[!]', 'green')} guiltySpark.py -z<NAME FILE OUTPUT>   <For insert output name file>
-    {colored('[!]', 'green')} guiltySpark.py -k<KEY>                <For insert key>
-    {colored('[!]', 'green')} guiltySpark.py -j<INPUT2>             <For insert input>
-    {colored('[!]', 'green')} guiltySpark.py -u<URL>                <For insert url>
-    {colored('[!]', 'green')} guiltySpark.py -r<REPETITIONS>        <For insert repetition number>\n(...{colored('[*]', 'blue')}\n""")
+    parser = argparse.ArgumentParser(description="", add_help=False)
     parser.add_argument("-m", dest="mode", required=False)
     parser.add_argument("-i", dest="input", required=False)
     parser.add_argument("-s", dest="show", required=False)
@@ -156,9 +120,9 @@ def main():
     
     def printt(a):
         if a == None or a == "":
-            print(f"[{colored('*', 'red')}] >> {colored('None', 'white')}")
+            print(f"[{colored('*', 'red')}] >> None")
         else:
-            print(f"[{colored('*', 'blue')}] >> {colored(a, 'white')}")
+            print(f"[{colored('*', 'blue')}] >> {a}")
 
     content_file = ""
     if file_path != None:
@@ -176,56 +140,39 @@ def main():
 
     if show == "M" or show == "m":
         print_modes()
-    
-    if mode == "C1" or mode == "c1":
-        new_text = hex_to_text(opc)
-        printear()
-        printt(new_text)
-    
-    if mode == "C2" or mode == "c2":
-        new_text = convert.text_to_hex(opc)
-        printear()
-        printt(new_text)
 
-    if mode == "C3" or mode == "c3":
-        new_text = convert.decimal_to_text(opc)
-        printear()
-        printt(new_text)
-    
-    if mode == "C4" or mode == "c4":
-        new_text = convert.binary_to_text(opc)
-        printear()
-        printt(new_text)
-    
-    if mode == "C5" or mode == "c5":
-        new_text = binary_to_hex(opc)
-        printear()
-        printt(new_text)
-    
-    if mode == "C6" or mode == "c6":
-        new_text = convert.decimal_to_hex(int(opc))
-        printear()
-        printt(new_text)
+    modes_map = {
+        "C1": hex_to_text,
+        "C2": text_to_hex,
+        "C3": decimal_to_text,
+        "C4": binary_to_text,
+        "C5": binary_to_hex,
+        "C6": decimal_to_hex,
+        "C7": url_encode,
+        "C8": revert_strings,
+        "C9": long_bytes,
+        "C10": imprimir_valor_hexadecimal,
 
-    if mode == "C7" or mode == "c7":
-        new_text = convert.url_encode(opc)
-        printear()
-        printt(new_text)
-    
-    if mode == "C8" or mode == "c8":
-        new_text = convert.revert_strings(opc)
-        printear()
-        printt(new_text)
-    
-    if mode == "C9" or mode == "c9":
-        new_text = long_bytes(opc)
-        printear()
-        printt(new_text)
-    
-    if mode == "C10" or mode == "c10":
-        new_text = imprimir_valor_hexadecimal(opc)
-        printear()
-        printt(new_text)
+        "E1": fetch_and_search,
+        "E2": scan_icmp
+    }
+
+    if mode:
+        try:
+            mode_func = modes_map.get(mode.upper())
+            if mode == "E1":
+                result = mode_func(opc, opc_2)
+                printear()
+                printt(result)
+            else:
+                if mode_func:
+                    result = mode_func(opc)
+                    printear()
+                    printt(result)
+                else:
+                    pass
+        except:
+            pass
     
     if mode == "D1" or mode == "d1":
         new_text = base64_to_text(opc)
@@ -245,9 +192,9 @@ def main():
         new_text = rot13(opc)
         printear()
         printt(new_text)
-    
-    if mode == "D4" or mode == "d4": #oooooooooooooooooooooooooooooooooooooooo Is file
-        new_text = sustitution(content_file)
+
+    if mode == "D4" or mode == "d4":
+        new_text = atbash_cipher(opc)
         printear()
         printt(new_text)
     
@@ -298,39 +245,7 @@ def main():
         new_text = xor_chain_sin_key(opc, opc_2)
         printear()
         printt(new_text)
-        
-    if mode == "D10" or mode == "d10":
-        import importlib.util
-        
-        try:
-            fuckJs_path = '/home/parrot/Desktop/aprendiendoPython/fuckJs.py'
-            spec = importlib.util.spec_from_file_location("fuckJs", fuckJs_path)
-            fuckJs = importlib.util.module_from_spec(spec)
-            spec.loader.exec_module(fuckJs)
-            js = ""
-            with open(file_path, 'r') as file:
-                js = file.read()
 
-            new_text = fuckJs.fight(js).code
-
-            printear()
-            if new_text == None or new_text == "":
-                print(f"[{colored('*', 'blue')}] >> {colored('None', 'magenta')}")
-            else:
-                print(f"[{colored('*', 'blue')}] >> {colored({new_text}, 'magenta')}")
-        except Exception as e: pass
-
-    if mode == "D11" or mode == "d11":
-        new_text = md5_decode(opc)
-        printear()
-        printt(new_text)
-
-    if mode == "D12" or mode == "d12":
-        n = opc.split(':')
-        new_text = luhn_find_card(n)
-        printear()
-        printt(new_text)
-    
     if mode == "D13" or mode == "d13":
         new_text = brainfuck_interpreter(opc)
         printear()
@@ -388,76 +303,12 @@ def main():
         printear()
         printt("Generate file output with success")
 
-    if mode == "E1" or mode == "e1":
-        new_text = fetch_and_search(opc, opc_2)
-        printear()
-        printt(new_text)
-
 def printear():
     print("")
     bar_progress = o.progress("Uploading")
     for i in range(344):
-        sleep(0.0001)
+        sleep(0.001)
         bar_progress.status(f"{colored(i, 'cyan')}")
-
-class convert:
-    def revert_strings(n):
-        try:
-            c = len(n) - 1
-            string = ""
-
-            for x in range(c + 1):
-                string += n[c]
-                c -= 1
-            return string
-        except Exception as e: pass
-        
-    def hex_to_text(strings):
-        def eliminar_no_imprimibles(cadena):
-            patron = re.compile(r'[\x00-\x1F\x7F-\xFF]')
-            cadena_limpia = patron.sub('', cadena)
-            return cadena_limpia
-
-        try:
-            bytes_object = bytes.fromhex(strings)
-            text = bytes_object.decode("utf-8", errors='ignore')
-            new_text = eliminar_no_imprimibles(text)
-            return new_text
-
-        except Exception as e: pass
-
-    def text_to_hex(text):
-        try:
-            bytes_object = text.encode("utf-8")
-            hex_representation = bytes_object.hex()
-            return hex_representation
-        except Exception as e: pass
-
-    def decimal_to_text(decimal_numbers):
-        try:
-            text = ''.join(chr(int(num)) for num in decimal_numbers.split(','))
-            return text
-        except Exception as e: pass
-
-    def decimal_to_hex(decimal_number):
-        try:
-            hexadecimal_string = hex(decimal_number)[2:]
-            return hexadecimal_string
-        except Exception as e: pass
-
-    def binary_to_text(binary_str, encoding='ascii'):
-        try:
-            bytes_list = [binary_str[i:i+8] for i in range(0, len(binary_str), 8)]
-            chars = [chr(int(byte, 2)) for byte in bytes_list]
-            text = ''.join(chars)
-            decoded_text = text.encode('latin1').decode(encoding)
-            return decoded_text
-        except Exception as e: pass
-
-    def url_encode(text):
-        try:
-            return quote(text)
-        except Exception as e: pass
 
 if __name__ == "__main__":
     main()
