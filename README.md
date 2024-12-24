@@ -33,7 +33,7 @@ To install GrizzlySpark, clone the repository and install the necessary dependen
 2. Install the required dependencies:
     ```bash
     Vishok@user > pip install -r requirements.txt
-    Vishok@user > pip install -r requirements.txt //En caso de warnings
+    Vishok@user > pip install -r requirements.txt //In warning case
     ```
 
 ## Contributing
