@@ -28,9 +28,53 @@ GrizzlySpark includes a variety of essential features for CTF challenges:
 3. **File Analysis**: Analyze suspicious files for CTF purposes.<br>
 4. **Automation**: Automate tasks to save time and reduce errors during challenges.
 
-### Ilustrative image:
-![image](https://github.com/user-attachments/assets/c48d99ef-6eaf-4f95-b585-f3f529396e3d)
+### Ilustrative code:
+```cs
+[+] Convert modes
++---------------------------------------------------------------------------------------------------------------------------------------+
+|   Code   Description                                           Options       More details                                             |
++---------------------------------------------------------------------------------------------------------------------------------------+
+    C1     Convert Hexadecimal to Text                           -m -i         Input: Hexadecimal, Output: Text
+    C2     Convert Text to Hexadecimal                           -m -i         Input: Text, Output: Hexadecimal
+    C3     Convert Decimal to Text                               -m -i         Input: Decimal, Output: Text
+    C4     Convert Binary to Text                                -m -i         Input: Binary, Output: Text
+    C5     Convert Binary to Hexadecimal                         -m -i         Input: Binary, Output: Hexadecimal
+    C6     Convert Decimal to Hexadecimal                        -m -i         Input: Decimal, Output: Hexadecimal
+    C7     URL Encode                                            -m -i         Input: Text, Output: URL-encoded String
+    C8     Revert Strings (e.g., 'aloh' -> 'hola')               -m -i         Input: Text, Output: Reversed String
+    C9     Convert Long Bytes to Text                            -m -i         Input: Long Bytes, Output: Text
+    C10    Convert Hexadecimal (0x?? format) to Decimal          -m -i         Input: Hexadecimal (0x format), Output: Decimal
 
+[+] Decode modes
++---------------------------------------------------------------------------------------------------------------------------------------+
+|   Code   Description                                           Options       More details                                             |
++---------------------------------------------------------------------------------------------------------------------------------------+
+    D1     Bases Decode (base64, base58, base62, base85)         -m -i         Input: Base64 Encoded String, Output: Decoded Text
+    D2     Morse Code Decode                                     -m -i         Input: Morse Code, Output: Text
+    D3     ROT13 Decode                                          -m -i         Input: ROT13 Encoded Text, Output: Decoded Text
+    D4     Atbash Cipher Decode                                  -m -i         Input: Atbash Encoded Text, Output: Decoded Text
+    D5     Base64 File Decode                                    -m -f -r      Input: Base64 File, Output: Decoded File
+    D6     URL Decode                                            -m -i         Input: URL Encoded String, Output: Decoded String
+    D7     RSA Decode with Parameters (e, n, c, p, q)            -m -f         Input: RSA Parameters, Output: Decrypted Text
+    D8     Vigenère Cipher Decode                                -m -i -k      Input: Encrypted Text, Key, Output: Decrypted Text
+    D10    MD5 Hash Cracking                                     -m -i         Input: MD5 Hash, Output: Cracked Text
+    D13    Brainfuck Language Decode                             -m -i         Input: Brainfuck Code, Output: Decoded Text
+    D14    Caesar Cipher Decode                                  -m -i         Input: Caesar Encrypted Text, Output: Decrypted Text
+    D15    Bacon Cipher Decode                                   -m -i         Input: Bacon Cipher Encrypted Text, Output: Decrypted Text
+    D16    Trithemius Cipher Decode                              -m -i         Input: Trithemius Encrypted Text, Output: Decrypted Text
+    D17    XOR Brute Force (One Chain, HEX Format)               -m -i         Input: XOR Encrypted Text, Output: Decrypted Text
+    D18    Caesar ASCII Decode                                   -m -f         Input: Caesar Encrypted ASCII, Output: Decrypted ASCII
+    D19    XOR Two Files Decode                                  -m -x -y -z   Input: Two Files, Output: Decrypted File
+
+[+] Exploits modes
++---------------------------------------------------------------------------------------------------------------------------------------+
+|   Code   Description                                           Options       More details                                             |
++---------------------------------------------------------------------------------------------------------------------------------------+
+    E1     Web Scraping (Extract Data from URL, Text Patterns)   -m -i -j      Input: URL, Text Pattern, Output: Extracted Data
+    E2     Check Active IP (Check if IP is Active)               -m -i         Input: IP Address, Output: Active Status
+    E3     Extract Macros from DOCM Files                        -m -x         Input: DOCM File Path, Output: Extracted Macros
+    E4     Generate Reverse Shell (IP, Port)                     -m -i -j      Input: IP, Port, Output: Reverse Shell Command
+```
 
 ### Installation
 To install GrizzlySpark, clone the repository and install the necessary dependencies:
