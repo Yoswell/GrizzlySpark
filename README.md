@@ -29,21 +29,21 @@ GrizzlySpark includes a variety of essential features for CTF challenges:
 4. **Automation**: Automate tasks to save time and reduce errors during challenges.
 
 ### Ilustrative code:
-![Captura de pantalla 2024-12-24 224605](https://github.com/user-attachments/assets/833dc705-d794-48f7-bf9c-31b83121d519)
+![Captura_de_pantalla_2024-12-24_224605-transformed](https://github.com/user-attachments/assets/95fae25e-11f8-4c34-b901-32e48f4b0341)
 
 ### Installation
 To install GrizzlySpark, clone the repository and install the necessary dependencies:
 
 1. Clone the repository:
     ```bash
-    Vishok@user > git clone https://github.com/username/grizzlyspark.git
-    Vishok@user > cd grizzlyspark
+    Anonymous@user > git clone https://github.com/username/grizzlyspark.git
+    Anonymous@user > cd grizzlyspark
     ```
 
 2. Install the required dependencies:
     ```bash
-    Vishok@user > pip install -r requirements.txt
-    Vishok@user > pip install -r requirements.txt //In warning case
+    Anonymous@user > pip install -r requirements.txt
+    Anonymous@user > pip install -r requirements.txt //In warning case
     ```
 
 ### Contributing
