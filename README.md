@@ -9,6 +9,9 @@
   <img src="https://img.shields.io/badge/Language-Python%203.8%2B-blue.svg" alt="Python Version" />
   <img src="https://img.shields.io/badge/CTF-Tools-orange.svg" alt="CTF Tools" />
   <img src="https://img.shields.io/badge/Version-1.0.0-green.svg" alt="Version 1.0.0" />
+  <a href="https://github.com/Yoswell/GrizzlySpark/stargazers">
+    <img src="https://img.shields.io/github/stars/Yoswell/GrizzlySpark?style=social" alt="GitHub Stars">
+  </a>
 </div>
 
 <!-- Navegación -->
@@ -16,9 +19,9 @@
     <a href="#features"><b>Features</b></a> • 
     <a href="#examples"><b>Examples</b></a> • 
     <a href="#installation"><b>Installation</b></a> • 
+    <a href="#license"><b>License</b></a> • 
     <a href="#contributing"><b>Contributing</b></a> • 
-    <a href="#authors"><b>Authors</b></a> • 
-    <a href="#license"><b>License</b></a>
+    <a href="#authors"><b>Authors</b></a>
 </div>
 
 <!-- Título Principal -->
@@ -107,13 +110,22 @@ Make sure to follow our Code of Conduct and include detailed explanations for yo
 
 ---
 
-### 👤 **Authors**
+### **License**
+
+    This project is licensed under the MIT License.
+    
+    MIT License
+    
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software...
+
+---
+
+### **Authors**
 
 Yoswel Badilla (a.k.a. Vishok)
 <a href="https://www.linkedin.com/in/yoswel-badilla-cyberjr/">LinkedIn</a>
 <a href="https://yoswell.github.io/portafoliopersonal/index.html">Porfolio</a> 
-
-⭐ Support the Project
-
-If you find GrizzlySpark useful, consider giving it a ⭐ on GitHub!
-<div align="center"> <a href="https://github.com/username/grizzlyspark/stargazers"> <img src="https://img.shields.io/github/stars/username/grizzlyspark?style=social" alt="GitHub Stars"> </a> </div>
