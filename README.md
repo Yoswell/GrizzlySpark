@@ -1,13 +1,12 @@
 <!-- Banner Principal -->
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/91880a9f-f659-42e2-a926-6f9ebdc5ce44" alt="GrizzlySpark Logo" width="250px" />
+  <img src="https://github.com/user-attachments/assets/337e9df8-6c7b-42fe-b56a-baa6ea7c561a" alt="GrizzlySpark Logo" width="300px" />
 </div>
 
 <!-- Badges -->
 <div align="center">
   <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License MIT" />
   <img src="https://img.shields.io/badge/Language-Python%203.8%2B-blue.svg" alt="Python Version" />
-  <img src="https://img.shields.io/badge/CTF-Tools-orange.svg" alt="CTF Tools" />
   <img src="https://img.shields.io/badge/Version-1.0.0-green.svg" alt="Version 1.0.0" />
   <a href="https://github.com/Yoswell/GrizzlySpark/stargazers">
     <img src="https://img.shields.io/github/stars/Yoswell/GrizzlySpark?style=social" alt="GitHub Stars">
