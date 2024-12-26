@@ -2,3 +2,7 @@ pwntools
 termcolor
 pycryptodome
 urllib3
+scapy
+base58
+pybase62
+itertools
