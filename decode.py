@@ -1,10 +1,14 @@
 from termcolor import colored
 import base64
+import base58
 import subprocess as sub
 import os
 from urllib.parse import quote, unquote
 import fnmatch
+import hashlib
 import getpass
+import getpass
+from pwn import log as o
 
 # Función para obtener el usuario actual
 def get_current_user():
@@ -270,23 +274,6 @@ def luhn_find_card(n):
                 return i
     except Exception as e: pass
 
-# Decodificador XOR entre cadenas de texto sin usar una clave (brute force)
-def xor_chain_sin_key(input_1, input_2):
-    def xor_bytes(data1, data2):
-        try:
-            length = min(len(data1), len(data2))
-            return bytes([data1[i] ^ data2[i] for i in range(length)])
-        except Exception as e: pass
-
-    try:
-        input1_bytes = bytes.fromhex(input_1)
-        input2_bytes = bytes.fromhex(input_2)
-
-        result_bytes = xor_bytes(input1_bytes, input2_bytes)
-        result_str = result_bytes.decode('utf-8')
-        return result_str
-    except Exception as e: pass
-
 # Decodificador de cifrado vigenere 
 def vigenere_decrypt(text: str, key: str) -> str:
     try:
@@ -382,15 +369,43 @@ def rsa_decode_3_values(path: str) -> str:
             return m
         except Exception as e: pass
 
-# Decodificador de base64 a texto plano
-def base64_to_text(text: str) -> str:
+# Decodificador de bases a texto plano
+def decode_base(text: str) -> list:
+    results = []
+    
     try:
-        missing_padding = len(text) % 4
+        base64_text = text
+
+        missing_padding = len(base64_text) % 4
         if missing_padding != 0:
-            text += '=' * (4 - missing_padding)
-        decoded = base64.b64decode(text.encode())
-        return decoded.decode()
-    except Exception as e: pass
+            base64_text += '=' * (4 - missing_padding)
+        decoded = base64.b64decode(base64_text.encode())
+        results.append(("Base64", decoded.decode('utf-8')))
+    except Exception as e:
+        pass
+
+    # Base58
+    try:
+        base58_text = text
+
+        decoded = base58.b58decode(base58_text)
+        results.append(("Base58", decoded.decode('utf-8')))
+    except Exception as e:
+        pass
+
+    # Base85
+    try:
+        base85_text = text
+
+        decoded = base64.b85decode(base85_text.encode())
+        results.append(("Base85", decoded.decode('utf-8')))
+    except Exception as e:
+        pass
+
+    if not results:
+        print("No se pudo decodificar el texto con Base64, Base58, Base62 o Base85")
+
+    return results
 
 # Decodificador de codigo morse
 def decode_morse(morse_code: str) -> str:
@@ -447,3 +462,19 @@ def atbash_cipher(text: str) -> str:
     except Exception as e:
         print(f"[!] Error al decodificar con Atbash: {e}")
         return ""
+
+def crack_hash_md5(hash_to_crack: str) -> str:
+    try:
+        with open('rockyou.txt', 'r', encoding='latin-1') as f:
+            bar_progress = o.progress("Cracking hash")
+
+            for line in f:
+                line = line.strip()
+                bar_progress.status(f"{colored({line}, 'cyan')}")
+
+                if hashlib.md5(line.encode('latin-1')).hexdigest() == hash_to_crack:
+                    return line
+    except FileNotFoundError:
+        return "Archivo de diccionario no encontrado. Verifica la ruta."
+    except UnicodeDecodeError as e:
+        return f"Error de decodificación: {e}"
