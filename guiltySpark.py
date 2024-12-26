@@ -6,7 +6,10 @@ import argparse
 import base64
 import os
 from time import sleep
-
+import getpass
+import fnmatch
+import click
+from tabulate import tabulate
 
 from convert import (
     hex_to_text, long_bytes, imprimir_valor_hexadecimal, binary_to_hex, revert_strings, hex_to_text,
@@ -15,98 +18,96 @@ from convert import (
 
 from decode import (
     brute_force_xor, trithemius_decode, bacon_decode, cesar_decode, brainfuck_interpreter, 
-    luhn_find_card, xor_chain_sin_key, vigenere_decrypt, rsa_decode_3_values, base64_to_text, 
-    decode_morse, rot13, url_decode, ascii_caesar_shift, xor_files, atbash_cipher
+    luhn_find_card, vigenere_decrypt, rsa_decode_3_values, decode_base, 
+    decode_morse, rot13, url_decode, ascii_caesar_shift, xor_files, atbash_cipher, crack_hash_md5
 )
 
-from exploit import fetch_and_search, scan_icmp
+from exploit import (
+    fetch_and_search, scan_icmp, analyze_macros, generate_reverse_shell_examples, generate_wordlist
+)
 
 def print_modes():
-    print("""
-                    ▄▄                    ▄▄                                                            
-  ▄▄█▀▀▀█▄█          ██                  ▀███                ▄█▀▀▀█▄█                         ▀███       
-▄██▀     ▀█                                ██               ▄██    ▀█                           ██       
-██▀       ▀▀███▄███▀███  █▀▀▀███ █▀▀▀███   ██ ▀██▀   ▀██▀   ▀███▄   ▀████████▄ ▄█▀██▄ ▀███▄███  ██  ▄██▀ 
-█▓           ██▀ ▀▀  ██  ▀  ███  ▀  ███    ▓█   ██   ▄█       ▀█████▄ ██   ▀████   ██   ██▀ ▀▀  ██ ▄█    
-█▓▄    ▀████ █▓      ▓█    ██▓     ██▓     ▓█    ██ ▄▓            ▀██ ▓█    ██ ▄███▓█   █▓      ▓█▄██    
-▀▓█▄     ██  █▓      ▓█   ▓██     ▓██      ▓█     ██▓       ██     ██ ▓█    ▓██▓   ▓█   █▓      ▓█ ▀██▄  
-▓▓▓    ▀▓█▓▓ ▓▓      ▓▓   ▓█▓     ▓█▓      ▓▓     █▓▓       ▓     ▀█▓ ▓█▓   ▓▓ ▓▓▓▓▒▓   ▓▓      ▓▓▓▓▓    
-▀▒▓▓     ▓▓  ▓▒      ▓▓  ▓▓▓   ▓ ▓▓▓   ▓   ▒▓     ▒▓▒       ▓▓     ▓▓ ▓█   ▓▓▓▓▓   ▒▓   ▓▒      ▒▓ ▀▓▓▓  
-  ▒▒▒ ▒ ▒▒ ▒ ▒▒▒   ▒ ▒ ▒ ▒ ▒▓▒▓▒ ▒ ▒▓▒▓▒ ▒ ▒ ▒     ▓        ▒▓▒ ▒ ▒▓  ▒▓▒ ▒ ▒ ▒▓▒ ▒ ▓▒▒ ▒▒▒   ▒ ▒ ▒  ▒ ▒""")
-    #---------------------------------------------------------------------------------#
-    print(f"\n{colored('[+]', 'red')} Convert")
-    print(f"\t{colored('[+]', 'yellow')} C1  - Hexadecimal to text                               options(-m -i)")
-    print(f"\t{colored('[+]', 'yellow')} C2  - Text to hexadecimal                               options(-m -i)")
-    print(f"\t{colored('[+]', 'yellow')} C3  - Decimal to text                                   options(-m -i)")
-    print(f"\t{colored('[+]', 'yellow')} C4  - Binary to text                                    options(-m -i)")
-    print(f"\t{colored('[+]', 'yellow')} C5  - Binary to hexadecimal                             options(-m -i)")
-    print(f"\t{colored('[+]', 'yellow')} C6  - Decimal to hexadecimal                            options(-m -i)")
-    print(f"\t{colored('[+]', 'yellow')} C7  - URL encode                                        options(-m -i)")
-    print(f"\t{colored('[+]', 'yellow')} C8  - Revert strings (aloh -> hola)                     options(-m -i)")
-    print(f"\t{colored('[+]', 'yellow')} C9  - Long_bytes to text                                options(-m -i)")
-    print(f"\t{colored('[+]', 'yellow')} C10 - Convert hexadecimal (0x?? format) to decimal      options(-m -i)")
-    #---------------------------------------------------------------------------------#
-    print(f"{colored('[+]', 'red')} Decode")
-    print(f"\t{colored('[+]', 'yellow')} D1  - Base64                                            options(-m -i)")
-    print(f"\t{colored('[+]', 'yellow')} D2  - Morse decode                                      options(-m -i)")
-    print(f"\t{colored('[+]', 'yellow')} D3  - ROT13 decode                                      options(-m -i)")
-    print(f"\t{colored('[+]', 'yellow')} D4  - Atbash decode                                     options(-m -i)")
-    print(f"\t{colored('[+]', 'yellow')} D5  - Base64 file decode                                options(-m -f -r)")
-    print(f"\t{colored('[+]', 'yellow')} D6  - URL decode                                        options(-m -i)")
-    print(f"\t{colored('[+]', 'yellow')} D7  - RSA decode with (e:? n:? c:? p:? q:?)             options(-m -f)")
-    print(f"\t{colored('[+]', 'yellow')} D8  - Vigenere decode                                   options(-m -i -k)")
-    print(f"\t{colored('[+]', 'yellow')} D9  - Xor (Two chains) without (key) (HEX format)       options(-m -i -j)")
-    print(f"\t{colored('[+]', 'yellow')} D13 - BrainFuck lenguage (format -> >+++++++++[<+)      options(-m -i)")
-    print(f"\t{colored('[+]', 'yellow')} D14 - Caesar decode                                     options(-m -i)")
-    print(f"\t{colored('[+]', 'yellow')} D15 - Bacon decode (format -> abbb abaaa abbaa)         options(-m -i)")
-    print(f"\t{colored('[+]', 'yellow')} D16 - Trithemius decode                                 options(-m -i)")
-    print(f"\t{colored('[+]', 'yellow')} D17 - XOR (One chain) brute force (HEXformat)           options(-m -i)")
-    print(f"\t{colored('[+]', 'yellow')} D18 - Caesar ascii decode                               options(-m -f)")
-    print(f"\t{colored('[+]', 'yellow')} D19 - Xor (Two Files) decode                            options(-m -x -y -z)")
-    #-------------------------------------=-------------------------------------------#
-    print(f"{colored('[+]', 'red')} Exploits")
-    print(f"\t{colored('[+]', 'yellow')} E1  - Web Scrapping (url, text pattern)                 options(-m -i -j)")
-    print(f"\t{colored('[+]', 'yellow')} E2  - Check active ip                                   options(-m -i)\n")
-    #-------------------------------------=-------------------------------------------#
-    print(f"""Usage: To continue for see more information about this program...\n\n(...{colored('[*]', 'blue')}
-    {colored('[!]', 'green')} guiltySpark.py -m<MODE>               <For select mode>
-    {colored('[!]', 'green')} guiltySpark.py -s<M>                  <For see modes>
-    {colored('[!]', 'green')} guiltySpark.py -i<INPUT1>             <For insert input>
-    {colored('[!]', 'green')} guiltySpark.py -f<PATH FILE>          <For insert path file>
-    {colored('[!]', 'green')} guiltySpark.py -x<PATH FILE 1>        <For insert path file 1>
-    {colored('[!]', 'green')} guiltySpark.py -y<PATH FILE 2>        <For insert path file 2>
-    {colored('[!]', 'green')} guiltySpark.py -z<NAME FILE OUTPUT>   <For insert output name file>
-    {colored('[!]', 'green')} guiltySpark.py -k<KEY>                <For insert key>
-    {colored('[!]', 'green')} guiltySpark.py -j<INPUT2>             <For insert input>
-    {colored('[!]', 'green')} guiltySpark.py -r<REPETITIONS>        <For insert repetition number>\n(...{colored('[*]', 'blue')}\n""")
-    print("guiltySpark.py: finish")
-    #---------------------------------------------------------------------------------#
+    from tabulate import tabulate
 
-def main():
-    parser = argparse.ArgumentParser(description="", add_help=False)
-    parser.add_argument("-m", dest="mode", required=False)
-    parser.add_argument("-i", dest="input", required=False)
-    parser.add_argument("-s", dest="show", required=False)
-    parser.add_argument("-f", dest="path", required=False)
-    parser.add_argument("-x", dest="path1", required=False)
-    parser.add_argument("-y", dest="path2", required=False)
-    parser.add_argument("-z", dest="path3", required=False)
-    parser.add_argument("-r", dest="repeat", required=False)
-    parser.add_argument("-k", dest="key", required=False)
-    parser.add_argument("-j", dest="input_two", required=False)
-    
-    args = parser.parse_args()
+    print(r"""
+ __         __
+/  \.-'''-./  \  | Author: Vishok
+\    -   -    /  |---------------
+ |   o   o   |   | Version: 1.0
+ \  .-'''-.  /   |---------------
+  '-\__Y__/-'    | A versatile text and cipher decoding/encoding tool designed to assist in Capture The Flag (CTF)
+     '---'    
+""")
 
-    mode = args.mode
-    opc = args.input
-    show = args.show
-    file_path = args.path
-    file_path_1 = args.path1
-    file_path_2 = args.path2
-    name_output_file = args.path3
-    repetitions = args.repeat
-    key = args.key
-    opc_2 = args.input_two
+    data = [
+        (f"{colored('C1', 'red')}", "Convert Hexadecimal to Text", "-m -i", "Hexadecimal", "Text"),
+        (f"{colored('C2', 'red')}", "Convert Text to Hexadecimal", "-m -i", "Text", "Hexadecimal"),
+        (f"{colored('C3', 'red')}", "Convert Decimal to Text", "-m -i", "Decimal", "Text"),
+        (f"{colored('C4', 'red')}", "Convert Binary to Text", "-m -i", "Binary", "Text"),
+        (f"{colored('C5', 'red')}", "Convert Binary to Hexadecimal", "-m -i", "Binary", "Hexadecimal"),
+        (f"{colored('C6', 'red')}", "Convert Decimal to Hexadecimal", "-m -i", "Decimal", "Hexadecimal"),
+        (f"{colored('C7', 'red')}", "URL Encode", "-m -i", "Text", "URL-encoded String"),
+        (f"{colored('C8', 'red')}", "Revert Strings", "-m -i", "Text", "Reversed String"),
+        (f"{colored('C9', 'red')}", "Convert Long Bytes to Text", "-m -i", "Long Bytes", "Text"),
+        (f"{colored('C10', 'red')}", "Convert Hexadecimal (0x?? format) to Decimal", "-m -i", "Hexadecimal (0x format)", "Decimal"),
+        
+        ("", " ", " ", " "),
+
+        (f"{colored('D1', 'yellow')}", "Bases Decode (base64, base58, base62, base85)", "-m -i", "Base64 Encoded String", "Decoded Text"),
+        (f"{colored('D2', 'yellow')}", "Morse Code Decode", "-m -i", "Morse Code", "Text"),
+        (f"{colored('D3', 'yellow')}", "ROT13 Decode", "-m -i", "ROT13 Encoded Text", "Decoded Text"),
+        (f"{colored('D4', 'yellow')}", "Atbash Cipher Decode", "-m -i", "Atbash Encoded Text", "Decoded Text"),
+        (f"{colored('D5', 'yellow')}", "Base64 File Decode", "-m -f -r", "Base64 File", "Decoded File"),
+        (f"{colored('D6', 'yellow')}", "URL Decode", "-m -i", "URL Encoded String", "Decoded String"),
+        (f"{colored('D7', 'yellow')}", "RSA Decode with Parameters (e, n, c, p, q)", "-m -f", "RSA Parameters", "Decrypted Text"),
+        (f"{colored('D8', 'yellow')}", "Vigenère Cipher Decode", "-m -i -k", "Encrypted Text, Key", "Decrypted Text"),
+        (f"{colored('D10', 'yellow')}", "MD5 Hash Cracking", "-m -i", "MD5 Hash", "Cracked Text"),
+        (f"{colored('D13', 'yellow')}", "Brainfuck Language Decode", "-m -i", "Brainfuck Code", "Decoded Text"),
+        (f"{colored('D14', 'yellow')}", "Caesar Cipher Decode", "-m -i", "Caesar Encrypted Text", "Decrypted Text"),
+        (f"{colored('D15', 'yellow')}", "Bacon Cipher Decode", "-m -i", "Bacon Cipher Encrypted Text", "Decrypted Text"),
+        (f"{colored('D16', 'yellow')}", "Trithemius Cipher Decode", "-m -i", "Trithemius Encrypted Text", "Decrypted Text"),
+        (f"{colored('D17', 'yellow')}", "XOR Brute Force (One Chain, HEX Format)", "-m -i", "XOR Encrypted Text", "Decrypted Text"),
+        (f"{colored('D18', 'yellow')}", "Caesar ASCII Decode", "-m -f", "Caesar Encrypted ASCII", "Decrypted ASCII"),
+        (f"{colored('D19', 'yellow')}", "XOR Two Files Decode", "-m -x -y -z", "Two Files", "Decrypted File"),
+
+        ("", " ", " ", " "),
+
+        (f"{colored('E1', 'blue')}", "Web Scraping", "-m -i -j", "URL, Text Pattern", "Extracted Data"),
+        (f"{colored('E2', 'blue')}", "Check Active IP", "-m -i", "IP Address", "Active Status"),
+        (f"{colored('E3', 'blue')}", "Extract Macros", "-m -x", "DOCM File Path", "Extracted Macros"),
+        (f"{colored('E4', 'blue')}", "Generate Reverse Shell", "-m -i -j", "IP, Port", "Reverse Shells"),
+        (f"{colored('E5', 'blue')}", "Generate dictionary", "-m -i", "Text Pattern", "Dictionary File"),
+    ]
+
+    # Table headers
+    headers = [colored("Code", 'cyan'), colored("Description", 'cyan'), colored("Parameters", 'cyan'), colored("Input", 'cyan'), colored("Output", 'cyan')]
+
+    print(f'\n{tabulate(data, headers=headers, tablefmt="list", numalign="center")}')
+
+
+@click.command()
+@click.option("-m", "--mode", help="Mode of operation (e.g., D10)", required=False, type=str)
+@click.option("-i", "--opc", help="Input data", required=False, type=str)
+@click.option("-s", "--show", help="Show mode -sS o -ss", required=False, type=str)
+@click.option("-f", "--path", help="Path to a file", required=False, type=str)
+@click.option("-x", "--path1", help="Another file path", required=False, type=str)
+@click.option("-y", "--path2", help="Yet another file path", required=False, type=str)
+@click.option("-z", "--path3", help="Path for output file", required=False, type=str)
+@click.option("-r", "--repeat", help="Repeat the operation", required=False, type=int)
+@click.option("-k", "--key", help="Key for decryption", required=False, type=str)
+@click.option("-j", "--input_two", help="Second input data", required=False, type=str)
+
+def main(mode, opc, show, path, path1, path2, path3, repeat, key, input_two):
+    opc = opc
+    show_mode = show
+    file_path = path
+    file_path_1 = path1
+    file_path_2 = path2
+    name_output_file = path3
+    repetitions = repeat
+    key_val = key
+    opc_2 = input_two
+    mode = mode
 
     def locate_file(directory, filename):
         matches = []
@@ -120,9 +121,9 @@ def main():
     
     def printt(a):
         if a == None or a == "":
-            print(f"[{colored('*', 'red')}] >> None")
+            print(f"\n[{colored('*', 'red')}] >> None")
         else:
-            print(f"[{colored('*', 'blue')}] >> {a}")
+            print(f"{a}")
 
     content_file = ""
     if file_path != None:
@@ -138,9 +139,6 @@ def main():
         with open(file_path, 'r') as file:
             content_file = file.read()
 
-    if show == "M" or show == "m":
-        print_modes()
-
     modes_map = {
         "C1": hex_to_text,
         "C2": text_to_hex,
@@ -153,50 +151,63 @@ def main():
         "C9": long_bytes,
         "C10": imprimir_valor_hexadecimal,
 
+        "D1": decode_base,
+        "D2": decode_morse,
+        "D3": rot13,
+        "D4": atbash_cipher,
+        "D6": url_decode,
+        "D10": crack_hash_md5,
+        "D13": brainfuck_interpreter,
+        "D15": bacon_decode,
+        "D16": trithemius_decode,
+
         "E1": fetch_and_search,
-        "E2": scan_icmp
+        "E2": scan_icmp,
+        "E3": analyze_macros,
+        "E4": generate_reverse_shell_examples,
+        "E5": generate_wordlist,
     }
+
+    if show_mode == "S" or show_mode == "s":
+        print_modes()
 
     if mode:
         try:
             mode_func = modes_map.get(mode.upper())
-            if mode == "E1":
-                result = mode_func(opc, opc_2)
+
+            if mode == "D1":
+                result = decode_base(opc)
+                printear()
+                for key, value in result:
+                    print(f"{colored(key + ':', 'cyan')} {value}")
+
+            elif mode == "D10":
+                result = crack_hash_md5(opc)
                 printear()
                 printt(result)
-            else:
-                if mode_func:
-                    result = mode_func(opc)
-                    printear()
-                    printt(result)
-                else:
-                    pass
+
+            elif mode == "E1":
+                result = mode_func(opc, opc_2)
+                printear()
+                for x in result:
+                    printt(x)
+            
+            elif mode == "E3":
+                result = mode_func(file_path_1)
+                printear()
+                printt(result)
+
+            elif mode == "E4":
+                result = generate_reverse_shell_examples(opc, opc_2)
+                printear()
+                printt(result)
+
+            elif mode_func:
+                result = mode_func(opc)
+                printear()
+                printt(result)
         except:
             pass
-    
-    if mode == "D1" or mode == "d1":
-        new_text = base64_to_text(opc)
-        printear()
-        if isinstance(new_text, dict):
-            for key, value in new_text.items():
-                print(f"[{colored('*', 'blue')}] >> {colored(value, 'white')}")
-        else:
-            printt(new_text)
-    
-    if mode == "D2" or mode == "d2": 
-        new_text = decode_morse(opc)
-        printear()
-        printt(new_text)
-    
-    if mode == "D3" or mode == "d3":
-        new_text = rot13(opc)
-        printear()
-        printt(new_text)
-
-    if mode == "D4" or mode == "d4":
-        new_text = atbash_cipher(opc)
-        printear()
-        printt(new_text)
     
     if mode == "D5" or mode == "d5": #oooooooooooooooooooooooooooooooooooooooo Is file
         import subprocess
@@ -225,11 +236,6 @@ def main():
 
         printear()
         printt(new_text)
-    
-    if mode == "D6" or mode == "d6":
-        new_text = url_decode(opc)
-        printear()
-        printt(new_text)
 
     if mode == "D7" or mode == "d7":
         new_text = rsa_decode_3_values(file_path)
@@ -240,33 +246,12 @@ def main():
         new_text = vigenere_decrypt(opc, key)
         printear()
         printt(new_text)
-    
-    if mode == "D9" or mode == "d9":
-        new_text = xor_chain_sin_key(opc, opc_2)
-        printear()
-        printt(new_text)
-
-    if mode == "D13" or mode == "d13":
-        new_text = brainfuck_interpreter(opc)
-        printear()
-        printt(new_text)
 
     if mode == "D14" or mode == "d14":
         printear()
         for x in range(40):
             a = cesar_decode(opc, x)
             printt(a)
-
-    if mode == "D15" or mode == "d15":
-        a = bacon_decode(opc)
-        printear()
-        for x in a:
-            printt(x)
-
-    if mode == "D16" or mode == "d16":
-        new_text = trithemius_decode(opc)
-        printear()
-        printt(new_text)
 
     if mode == "D17" or mode == "d17":
         printear()
@@ -276,10 +261,10 @@ def main():
 
             for key, text in possible_texts[:10]:
                 if possible_texts == None or possible_texts == "":
-                    print(f"[{colored('*', 'blue')}] >> {colored('None', 'magenta')}")
+                    printt(possible_texts)
                 else:
-                    print(f"[{colored('*', 'blue')}] >> {colored(text, 'magenta')}")
-        except Exception as e: print(f"[{colored('-', 'red')}] >> Error: {e}")
+                    printt(text)
+        except Exception as e: pass
     
     if mode == "D18" or mode == "d18":
         printear()
@@ -309,6 +294,7 @@ def printear():
     for i in range(344):
         sleep(0.001)
         bar_progress.status(f"{colored(i, 'cyan')}")
+    print("")
 
 if __name__ == "__main__":
     main()
