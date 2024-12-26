@@ -133,3 +133,6 @@ Make sure to follow our Code of Conduct and include detailed explanations for yo
 Yoswel Badilla (a.k.a. Vishok)
 <a href="https://www.linkedin.com/in/yoswel-badilla-cyberjr/">LinkedIn</a>
 <a href="https://yoswell.github.io/portafoliopersonal/index.html">Porfolio</a> 
+
+<img src="https://github.com/user-attachments/assets/97543a7e-7e34-48b3-82ad-59d243ccb9ae" width="50px" />
+<img src="https://github.com/user-attachments/assets/e82f014a-964f-4c8e-89bb-a3856cb5cd6b" width="50px" />
