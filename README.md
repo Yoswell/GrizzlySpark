@@ -1,61 +1,119 @@
+<!-- Banner Principal -->
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/91880a9f-f659-42e2-a926-6f9ebdc5ce44" alt="image" width="200px" />
+  <img src="https://github.com/user-attachments/assets/91880a9f-f659-42e2-a926-6f9ebdc5ce44" alt="GrizzlySpark Logo" width="250px" />
 </div>
 
+<!-- Badges -->
 <div align="center">
-  <img src="https://img.shields.io/badge/License-MIT-blue.svg" />
-  <img src="https://img.shields.io/badge/Go-%3E%3D%201.0-blue.svg" />
+  <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License MIT" />
+  <img src="https://img.shields.io/badge/Language-Python%203.8%2B-blue.svg" alt="Python Version" />
+  <img src="https://img.shields.io/badge/CTF-Tools-orange.svg" alt="CTF Tools" />
+  <img src="https://img.shields.io/badge/Version-1.0.0-green.svg" alt="Version 1.0.0" />
 </div>
 
-<div align="center">
-    <a href="#features">Features</a> • 
-    <a href="#installation">Installation</a> • 
-    <a href="#contributing">Contributing</a> • 
-    <a href="#authors">Authors</a> 
+<!-- Navegación -->
+<div align="center" style="margin-top: 15px;">
+    <a href="#features"><b>Features</b></a> • 
+    <a href="#examples"><b>Examples</b></a> • 
+    <a href="#installation"><b>Installation</b></a> • 
+    <a href="#contributing"><b>Contributing</b></a> • 
+    <a href="#authors"><b>Authors</b></a> • 
+    <a href="#license"><b>License</b></a>
 </div>
 
-<div align="center">
-    <h1>GrizzlySpark | CTF tools | All in one</h1>
-</div>
+<!-- Título Principal -->
+<br/><br/>
 
-### Description
-**GrizzlySpark** is a powerful Python tool designed to assist CTF (Capture The Flag) participants in solving IT security challenges. The tool provides various functionalities for data analysis, conversion, and manipulation, allowing users to focus on solving complex security problems efficiently. Whether you're decoding, analyzing traffic, or working with different formats, GrizzlySpark simplifies your tasks.
+### 🚀 GrizzlySpark | CTF Tools | All-in-One Utility
 
-### Features
-GrizzlySpark includes a variety of essential features for CTF challenges:
-1. **Data Conversion**: Convert between different formats (Base64, Hex, etc.)<br>
-2. **Decoding/Encoding**: Decode or encode data using (e.g., Base64, ROT13, XOR).<br>
-3. **File Analysis**: Analyze suspicious files for CTF purposes.<br>
-4. **Automation**: Automate tasks to save time and reduce errors during challenges.
+### **Description**  
+**GrizzlySpark** is a versatile and powerful Python tool designed specifically for **CTF (Capture The Flag)** participants. It streamlines data analysis, conversion, and manipulation, allowing you to focus on solving complex security puzzles with efficiency.  
 
-### Ilustrative code:
-![image](https://github.com/user-attachments/assets/9c9b7bfc-4dfa-4a25-a7f1-8180aa8536e8)
+Whether you're decoding Base64, analyzing traffic, or automating repetitive tasks, **GrizzlySpark** has you covered.
 
-### Installation
-To install GrizzlySpark, clone the repository and install the necessary dependencies:
+---
 
-1. Clone the repository:
-    ```bash
-    Anonymous@user > git clone https://github.com/username/grizzlyspark.git
-    Anonymous@user > cd grizzlyspark
-    ```
+### **Features**  
+GrizzlySpark includes a variety of essential functionalities for CTF challenges:
 
-2. Install the required dependencies:
-    ```bash
-    Anonymous@user > pip install -r requirements.txt
-    Anonymous@user > pip install -r requirements.txt //In warning case
-    ```
+1. ✅ **Data Conversion:** Easily convert between formats (Base64, Hex, Binary).  
+2. 🔄 **Decoding/Encoding:** Support for Base64, ROT13, XOR, and more.  
+3. 📂 **File Analysis:** Analyze and process suspicious files efficiently.  
+4. ⚡ **Automation:** Automate repetitive tasks to save time during challenges.  
+5. 🔒 **Security Utilities:** Built-in tools for hashing, encryption, and decryption.
 
-### Contributing
-We welcome contributions from the community. To contribute to GrizzlySpark:
+---
 
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-name`).
-3. Commit your changes (`git commit -am 'Add feature'`).
-4. Push to the branch (`git push origin feature-name`).
-5. Create a pull request.
+### **Examples**  
 
-Please make sure to follow the Code of Conduct and provide clear explanations for your changes.
+### 🔑 **1. Wordlist Generation**  
+```bash
+~ ❯ grizzlySpark -mE5 -i'Yoswel'
+[ ] Uploading: 343
 
-### Authors
-Developed by [Yoswel Badilla](https://www.linkedin.com/in/yoswel-badilla-cyberjr/), also known as **Vishok**.
+✅ Wordlist generada y guardada en 'dictionary.txt' con 17,408 palabras.
+```
+### 🔑 **2. Base decode**  
+```
+~ ❯ grizzlySpark -mD1 -i'6sJohm2dXR3G6a'
+[↙] Uploading: 343
+
+✅ Base58: hola mundo
+```
+
+---
+
+### **Installation**
+
+Clone the repository:
+
+    git clone https://github.com/username/grizzlyspark.git
+    cd grizzlyspark
+
+Install dependencies:
+
+    pip install -r requirements.txt
+
+In case of warnings:
+
+    pip install -r requirements.txt --break-system-packages
+
+Run the tool:
+
+    python main.py
+
+---
+
+### **Contributing**
+
+We welcome contributions from the community! To contribute:
+
+    Fork the repository.
+    Create a branch:
+
+git checkout -b feature-new-feature
+
+    Commit changes:
+
+git commit -m "Add new feature"
+
+    Push changes:
+
+git push origin feature-new-feature
+
+    Create a Pull Request on GitHub.
+
+Make sure to follow our Code of Conduct and include detailed explanations for your contributions.
+
+---
+
+### 👤 **Authors**
+
+Yoswel Badilla (a.k.a. Vishok)
+<a href="https://www.linkedin.com/in/yoswel-badilla-cyberjr/">LinkedIn</a>
+<a href="https://yoswell.github.io/portafoliopersonal/index.html">Porfolio</a> 
+
+⭐ Support the Project
+
+If you find GrizzlySpark useful, consider giving it a ⭐ on GitHub!
+<div align="center"> <a href="https://github.com/username/grizzlyspark/stargazers"> <img src="https://img.shields.io/github/stars/username/grizzlyspark?style=social" alt="GitHub Stars"> </a> </div>
