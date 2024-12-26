@@ -47,6 +47,11 @@ GrizzlySpark includes a variety of essential functionalities for CTF challenges:
 
 ---
 
+### **Exmaples modes**
+![image(1)](https://github.com/user-attachments/assets/5a9e2f07-4500-4c02-b87e-b8be21e50407)
+
+---
+
 ### **Examples**  
 
 ### 🔑 **1. Wordlist Generation**  
