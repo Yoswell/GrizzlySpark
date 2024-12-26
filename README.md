@@ -29,7 +29,7 @@ GrizzlySpark includes a variety of essential features for CTF challenges:
 4. **Automation**: Automate tasks to save time and reduce errors during challenges.
 
 ### Ilustrative code:
-![image](https://github.com/user-attachments/assets/d7750556-2939-4b6d-a856-c09252ca1fab)
+![image](https://github.com/user-attachments/assets/9c9b7bfc-4dfa-4a25-a7f1-8180aa8536e8)
 
 ### Installation
 To install GrizzlySpark, clone the repository and install the necessary dependencies:
