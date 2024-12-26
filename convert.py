@@ -33,12 +33,7 @@ def long_bytes(text: str) -> str:
 # Invertir una cadena
 def revert_strings(n):
     try:
-        c = len(n) - 1
-        string = ""
-        for x in range(c + 1):
-            string += n[c]
-            c -= 1
-        return string
+        return n[::-1]
     except Exception as e: pass
 
 # Convertir numeros hexadecimales a texto plano
